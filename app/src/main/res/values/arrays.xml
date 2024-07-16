@@ -1,0 +1,10 @@
+<resources>
+    <array name="autosize_text_sizes">
+        <item>150sp</item>
+        <item>400sp</item>
+    </array>
+    <array name="autosize_text_sizes2">
+        <item>170sp</item>
+        <item>400sp</item>
+    </array>
+</resources>
