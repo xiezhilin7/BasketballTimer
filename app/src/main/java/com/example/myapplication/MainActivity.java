@@ -23,8 +23,9 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends Activity implements View.OnClickListener {
-    private TextView text_second_24, text_minute_all, start, pause, clean_24, clean_14, all_function_done;
+    private TextView text_second_24, text_minute, start, pause, clean_24, clean_14, all_function_done, change_time;
     private ExoPlayer mExoPlayer;
+    private DialogNPV mDialogNPV;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,12 +33,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
 
-
-        text_minute_all = findViewById(R.id.text_minute);
+        text_minute = findViewById(R.id.text_minute);
         text_second_24 = findViewById(R.id.text_second);
-        text_minute_all.setTag(600);
+        text_minute.setTag(600);
         text_second_24.setTag(24);
 
         start = findViewById(R.id.start);
@@ -45,6 +45,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         clean_24 = findViewById(R.id.clean_24);
         clean_14 = findViewById(R.id.clean_14);
         all_function_done = findViewById(R.id.all_function_done);
+        change_time = findViewById(R.id.change_time);
 
         //text_all.setOnClickListener(this);
         //text_24.setOnClickListener(this);
@@ -53,14 +54,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         clean_24.setOnClickListener(this);
         clean_14.setOnClickListener(this);
         all_function_done.setOnClickListener(this);
+        change_time.setOnClickListener(this);
 
         start.setClickable(true);
         pause.setClickable(false);
         clean_24.setClickable(true);
         clean_14.setClickable(true);
         all_function_done.setClickable(true);
+        change_time.setClickable(true);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -75,6 +77,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
             clean14Time();
         } else if (v == all_function_done) {
             resetAll();
+        } else if (v == change_time) {
+            showNPVDialog();
+        }
+    }
+
+    private void showNPVDialog() {
+        if (mDialogNPV == null) {
+            mDialogNPV = new DialogNPV(this);
+            mDialogNPV.setCallback((minute, second) -> {
+                pauseTime();
+
+                int tag = minute * 60 + second;
+                text_minute.setTag(tag);
+                text_minute.setText(formatSecondsAsMinutesSeconds(tag));
+
+                if (mDialogNPV.isShowing()) {
+                    mDialogNPV.dismiss();
+                }
+
+            });
+        }
+        if (mDialogNPV.isShowing()) {
+            mDialogNPV.dismiss();
+        } else {
+            mDialogNPV.setCancelable(true);
+            mDialogNPV.setCanceledOnTouchOutside(true);
+            mDialogNPV.show();
         }
     }
 
@@ -107,12 +136,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mHandler.removeMessages(2);
 
         text_second_24.setTextColor(Color.WHITE);
-        text_minute_all.setTextColor(Color.WHITE);
+        text_minute.setTextColor(Color.WHITE);
 
         text_second_24.setTag(24);
-        text_minute_all.setTag(600);//10分钟
+        text_minute.setTag(600);//10分钟
         text_second_24.setText(String.valueOf(24));
-        text_minute_all.setText(formatSecondsAsMinutesSeconds(600));
+        text_minute.setText(formatSecondsAsMinutesSeconds(600));
 
         start.setClickable(true);
         pause.setClickable(false);
@@ -132,7 +161,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mHandler.removeMessages(1);
         mHandler.removeMessages(2);
 
-        int timeAll = (int) text_minute_all.getTag();
+        int timeAll = (int) text_minute.getTag();
         if (timeAll < 14) {
             text_second_24.setText(String.valueOf(timeAll));
             text_second_24.setTag(timeAll);
@@ -160,7 +189,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mHandler.removeMessages(1);
         mHandler.removeMessages(2);
 
-        int timeAll = (int) text_minute_all.getTag();
+        int timeAll = (int) text_minute.getTag();
         if (timeAll < 24) {
             text_second_24.setText(String.valueOf(timeAll));
             text_second_24.setTag(timeAll);
@@ -216,8 +245,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             text_second_24.setTag(24);//24S
         }
 
-        if (text_minute_all.getTag() == null) {
-            text_minute_all.setTag(600);//10分钟
+        if (text_minute.getTag() == null) {
+            text_minute.setTag(600);//10分钟
         }
 
         mHandler.sendEmptyMessageDelayed(1, 1000);
@@ -274,7 +303,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             super.handleMessage(msg);
             if (msg.what == 1) {//start
                 Object second24Tag = text_second_24.getTag();
-                Object minuteAllTag = text_minute_all.getTag();
+                Object minuteAllTag = text_minute.getTag();
                 //Log.e("TAGMain", "handleMessage second24Tag:" + second24Tag + "，minuteAllTag：" + minuteAllTag);
 
                 if (second24Tag != null && minuteAllTag != null) {
@@ -282,12 +311,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     text_second_24.setTag(--time);
 
                     int timeAll = (int) minuteAllTag;
-                    text_minute_all.setTag(--timeAll);
+                    text_minute.setTag(--timeAll);
 
                     if (timeAll <= 0) {
-                        text_minute_all.setText("0");
-                        text_minute_all.setTextColor(Color.RED);
-                        text_minute_all.setTag(null);
+                        text_minute.setText("0");
+                        text_minute.setTextColor(Color.RED);
+                        text_minute.setTag(null);
                         text_second_24.setText("0");
                         text_second_24.setTextColor(Color.RED);
                         text_second_24.setTag(null);
@@ -297,17 +326,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     } else if (time <= 0) {
                         text_second_24.setText("0");
                         text_second_24.setTextColor(Color.RED);
-                        String formatSecondsAsMinutesSeconds = formatSecondsAsMinutesSeconds(timeAll);
-                        text_minute_all.setText(formatSecondsAsMinutesSeconds);
+                        text_minute.setText(formatSecondsAsMinutesSeconds(timeAll));
                         text_second_24.setTag(timeAll < 24 ? timeAll : 24);
 
                         game24TimeEnd();
                         openMediaWhenTimeOut();
                     } else {
                         text_second_24.setTextColor(Color.WHITE);
-                        text_minute_all.setTextColor(Color.WHITE);
+                        text_minute.setTextColor(Color.WHITE);
                         text_second_24.setText(String.valueOf(time));
-                        text_minute_all.setText(formatSecondsAsMinutesSeconds(timeAll));
+                        text_minute.setText(formatSecondsAsMinutesSeconds(timeAll));
 
                         mHandler.sendEmptyMessageDelayed(1, 1000);
                     }

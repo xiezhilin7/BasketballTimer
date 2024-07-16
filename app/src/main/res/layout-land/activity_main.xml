@@ -10,8 +10,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/dp_3"
-        android:layout_marginBottom="@dimen/dp_3"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_5"
         android:orientation="vertical">
 
         <TextView
@@ -21,7 +22,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_25"
+            android:textSize="@dimen/sp_28"
             android:textStyle="bold" />
 
         <TextView
@@ -29,13 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_5"
             android:background="@color/upload_content_txt"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
+            android:padding="@dimen/dp_10"
             android:text="开始"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_25"
+            android:textSize="@dimen/sp_28"
             android:textStyle="bold" />
 
         <TextView
@@ -43,13 +44,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_5"
             android:background="@color/upload_content_txt"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
+            android:padding="@dimen/dp_10"
             android:text="暂停"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_25"
+            android:textSize="@dimen/sp_28"
             android:textStyle="bold" />
 
         <TextView
@@ -57,13 +58,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_5"
             android:background="@color/upload_content_txt"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
+            android:padding="@dimen/dp_10"
             android:text="24S计时"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_25"
+            android:textSize="@dimen/sp_28"
             android:textStyle="bold" />
 
         <TextView
@@ -71,13 +72,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_5"
             android:background="@color/upload_content_txt"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
+            android:padding="@dimen/dp_10"
             android:text="14S计时"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_25"
+            android:textSize="@dimen/sp_28"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_28"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/change_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_5"
+            android:background="@color/upload_content_txt"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="时间调整"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_28"
             android:textStyle="bold" />
 
         <TextView
@@ -85,13 +121,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_5"
             android:background="@color/upload_content_txt"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
-            android:text="重置"
+            android:padding="@dimen/dp_10"
+            android:text="时间重置"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_25"
+            android:textSize="@dimen/sp_28"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -102,16 +138,16 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginTop="@dimen/dp_m_20"
             android:id="@+id/text_minute"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
+            android:layout_marginTop="@dimen/dp_m_20"
             android:layout_weight="1"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="10:00"
             android:textColor="@color/white"
-            android:textSize="@dimen/dp_170"
+            android:textSize="@dimen/dp_180"
             android:textStyle="bold" />
 
 
